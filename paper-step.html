@@ -1,5 +1,5 @@
-<link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
-<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../../bower_components/iron-validatable-behavior/iron-validatable-behavior.html">
+<link rel="import" href="../../bower_components/polymer/polymer.html">
 
 <!--
 @element paper-step
@@ -19,7 +19,7 @@
 </dom-module>
 
 <script>
-  Polymer({
+  var step = Polymer({
 
     is: 'paper-step',
 
@@ -56,5 +56,7 @@
       this.fire('continue-step');
     }
   });
+
+  // step.prototype.ensureRegisterFinished();
 
 </script>

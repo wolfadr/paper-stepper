@@ -13,13 +13,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>paper-stepper Demo</title>
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <link rel="import" href="../../paper-input/paper-input.html">
-    <link rel="import" href="../../paper-input/paper-textarea.html">
-    <link rel="import" href="../../paper-styles/shadow.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
-    <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
-    <link rel="import" href="../../iron-form/iron-form.html">
+    <script src="../../../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
+    <link rel="import" href="../../../bower_components/paper-input/paper-input.html">
+    <link rel="import" href="../../../bower_components/paper-input/paper-textarea.html">
+    <link rel="import" href="../../../bower_components/paper-styles/shadow.html">
+    <link rel="import" href="../../../bower_components/iron-demo-helpers/demo-snippet.html">
+    <link rel="import" href="../../../bower_components/iron-demo-helpers/demo-pages-shared-styles.html">
+    <link rel="import" href="../../../bower_components/iron-form/iron-form.html">
     <link rel="import" href="../paper-stepper.html">
     <link rel="import" href="../paper-step.html">
   </head>
@@ -42,8 +42,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
   
   <div class="vertical-stepper-wrapper">
-    <a href="https://github.com/PolymerElements/iron-demo-helpers/issues/30">double demo issue</a>
-    <demo-snippet>
+    
       <template id="scope" is="dom-bind">
         <paper-stepper vertical>
           <paper-step id="step1" label="Create an account" summarize="Summarize if needed">
@@ -65,42 +64,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-input label="Address"></paper-input>
           </paper-step>
         </paper-stepper>
-        <script>
-          var scope = document.getElementById('scope');
-          var step1 = scope.$.step1;
-          var form1 = scope.$.form1;
-          step1._getValidity = function() {
-            return form1.validate();
-          };
-        </script>
+        
       </template>
-    </demo-snippet>
-  </div>
-  <div class="horizontal-stepper-wrapper">
-    <demo-snippet>
-      <template>
-        <paper-stepper>
-          <paper-step label="Create an account" summarize="Summarize if needed">
-            <form is="iron-form" method="post" action="/">
-              <paper-input label="Pseudo"></paper-input>
-              <paper-input type="password" label="Password"></paper-input>
-              <paper-input type="password" label="Confirm password"></paper-input>
-            </form>
-          </paper-step>
-          <paper-step label="Enter personal informations">
-            <paper-input label="Name"></paper-input>
-            <paper-input label="Address"></paper-input>
-          </paper-step>
-          <paper-step label="Write a word about you" editable optional>
-            <paper-textarea label="Your description" rows=3></paper-textarea>
-          </paper-step>
-          <paper-step label="Enter personal informations">
-            <paper-input label="Name"></paper-input>
-            <paper-input label="Address"></paper-input>
-          </paper-step>
-        </paper-stepper>
-      </template>
-    </demo-snippet>
   </div>
 
   </body>
