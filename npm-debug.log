@@ -1,0 +1,23 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/home/michel/nsolid-v1.2.1-linux-x64/bin/nsolid',
+1 verbose cli   '/home/michel/nsolid-v1.2.1-linux-x64/bin/npm',
+1 verbose cli   'install' ]
+2 info using npm@2.14.12
+3 info using node@v4.3.0
+4 verbose readDependencies loading dependencies from /home/michel/jsWorkspace/paper-stepper/package.json
+5 error install Couldn't read dependencies
+6 verbose stack Error: ENOENT: no such file or directory, open '/home/michel/jsWorkspace/paper-stepper/package.json'
+6 verbose stack     at Error (native)
+7 verbose cwd /home/michel/jsWorkspace/paper-stepper
+8 error Linux 3.19.0-58-generic
+9 error argv "/home/michel/nsolid-v1.2.1-linux-x64/bin/nsolid" "/home/michel/nsolid-v1.2.1-linux-x64/bin/npm" "install"
+10 error node v4.3.0
+11 error npm  v2.14.12
+12 error path /home/michel/jsWorkspace/paper-stepper/package.json
+13 error code ENOPACKAGEJSON
+14 error errno -2
+15 error syscall open
+16 error package.json ENOENT: no such file or directory, open '/home/michel/jsWorkspace/paper-stepper/package.json'
+16 error package.json This is most likely not a problem with npm itself.
+16 error package.json npm can't find a package.json file in your current directory.
+17 verbose exit [ -2, true ]

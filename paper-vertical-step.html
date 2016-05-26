@@ -36,6 +36,7 @@
       }
       #stepWrapper {
         padding: 16px 0;
+        @apply(--layout-vertical);
       }
       .flex-content-childs ::content > * {
         @apply(--layout-flex);
@@ -152,7 +153,8 @@
 
       behaviors: [
         Polymer.NeonAnimationRunnerBehavior,
-        Zecat.PaperStepBehavior
+        Zecat.PaperStepBehavior,
+        Polymer.IronValidatableBehavior
       ],
 
       properties: {
