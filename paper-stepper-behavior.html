@@ -67,7 +67,7 @@
 
     _continueStep: function(e) {
       var selectedItem = e.target;
-      if ( ( step = selectedItem.getEffectiveChildren()[0] )
+      if ( ( step = selectedItem )
         && step.validate() ) {          
         selectedItem.completed = true;
         this.progress();
@@ -76,7 +76,7 @@
 
     continue: function() {
       if ( (this.$.stepSelector.selectedItem || this.progress())
-        && ( step = this.$.stepSelector.selectedItem.getEffectiveChildren()[0] )
+        && ( step = this.$.stepSelector.selectedItem )
         && step.validate() ) {
         this.$.stepSelector.selectedItem.completed = true;
         this.progress();
