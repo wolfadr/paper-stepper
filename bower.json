@@ -1,8 +1,8 @@
 {
   "name": "paper-stepper",
-  "version": "2.0-beta.1",
+  "version": "2.2",
   "authors": [
-    "Zecat <jullienfelix@gmail.com>"
+    "wolfadr"
   ],
   "description": "Material paper-stepper element.",
   "keywords": [
@@ -12,7 +12,7 @@
   ],
   "main": "paper-stepper.html",
   "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/zecat/paper-stepper/",
+  "homepage": "https://github.com/wolfadr/paper-stepper",
   "ignore": [
     "/.*",
     "/test/"
