@@ -213,7 +213,8 @@
         },
 
         _computeIcon: function(completed, editable) {
-            return completed ? (editable ? 'editor:mode-edit' : 'done') : '';
+            // return completed ? (editable ? 'editor:mode-edit' : 'done') : '';
+            return completed ? (editable ? 'done' : 'done') : '';
         },
 
         _openedChange: function(opened, old) {
