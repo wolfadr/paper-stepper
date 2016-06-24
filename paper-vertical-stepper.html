@@ -34,33 +34,7 @@
 
         behaviors: [
             Zecat.PaperStepperBehavior
-        ],
-
-        attached: function() {
-            // this.getEffectiveChildren().forEach(function(step, index) {
-            //     var verticalStep = this.create('paper-vertical-step', {
-            //         index: index + 1,
-            //         linearStepper: this.linear,
-            //         editable: step.editable,
-            //         optional: step.optional,
-            //         label: step.label,
-            //         // set previousComplete true for the first step
-            //         previousCompleted: !index
-            //     });
-            //     Polymer.dom(verticalStep).appendChild(step);
-            //     Polymer.dom(this.$.stepSelector).appendChild(verticalStep);
-            // }.bind(this));
-
-            Polymer.dom(this.$.steppercontent).observeNodes(function(info) {
-                info.addedNodes.forEach(function(node, index) {
-                    node.index = index + 1;
-                    node.linearStepper = this.linear;
-                    // node.editable = step.editable;
-                    node.previousCompleted = !index;
-                });
-            });
-        }
-
+        ]
     });
     </script>
-</dom-module>t
+</dom-module>
