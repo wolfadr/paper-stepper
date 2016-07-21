@@ -67,8 +67,7 @@
         
         #stepButtonsWrapper {
             padding-right: 48px;
-            @apply(--layout-flex);
-            @apply(--layout-vertical);
+            width: 100%; /* flex layout confuses ie11 */
         }
         
         #continueButton {
