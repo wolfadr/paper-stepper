@@ -1,6 +1,6 @@
 {
   "name": "paper-stepper",
-  "version": "1.4.6",
+  "version": "1.4.8",
   "authors": [
     "wolfadr"
   ],
@@ -33,7 +33,7 @@
     "paper-badge": "PolymerElements/paper-badge#^1.1.1",
     "paper-material": "PolymerElements/paper-material#^1.0.6",
     "iron-validatable-behavior": "PolymerElements/iron-validatable-behavior#^1.0.5",
-    "highlightable-element": "https://github.com/michelluther/polymer-highlightable-element.git#0.0.1"
+    "highlightable-element": "https://github.com/michelluther/polymer-highlightable-element.git#^1.0.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
