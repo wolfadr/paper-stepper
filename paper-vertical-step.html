@@ -12,6 +12,7 @@
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-icons/editor-icons.html">
 <link rel="import" href="../iron-label/iron-label.html">
+<link rel="import" href="../highlightable-element/highlightable-element.html">
 <link rel="import" href="paper-step-behavior.html">
 <link rel="import" href="paper-step-shared-styles.html">
 <!--
@@ -67,7 +68,8 @@
         
         #stepButtonsWrapper {
             padding-right: 48px;
-            width: 100%; /* flex layout confuses ie11 */
+            width: 100%;
+            /* flex layout confuses ie11 */
         }
         
         #continueButton {
@@ -134,47 +136,50 @@
             height: 3em;
             align-items: center;
         }
+        
         paper-badge {
             @apply(--layout-vertical);
             justify-content: center;
         }
         </style>
-        <div class="titleContainer">
-            <!-- <iron-label class="titleContainer"> -->
-            <!-- <div> -->
-            <div id="backdrop" on-tap="_stepLabelTapped" on-mouseenter="_updateBadgeBackground" on-mouseleave="_updateBadgeBackground" iron-label-target>
-                <paper-ripple noink="[[!selectable]]"></paper-ripple>
-                <!-- hack: set "for" attribute to an undefined id for the badge 
+        <highlightable-element>
+            <div class="titleContainer">
+                <!-- <iron-label class="titleContainer"> -->
+                <!-- <div> -->
+                <div id="backdrop" on-tap="_stepLabelTapped" on-mouseenter="_updateBadgeBackground" on-mouseleave="_updateBadgeBackground" iron-label-target>
+                    <paper-ripple noink="[[!selectable]]"></paper-ripple>
+                    <!-- hack: set "for" attribute to an undefined id for the badge 
       not to position at the top right corner -->
-                <paper-badge for="noFor" icon="[[_computeIcon(completed, editable)]]" label="[[index]]">
-                </paper-badge>
-                <div id="textWrapper">
-                    <content select=".title" iron-label-target></content>
-                    <template is="dom-if" if="[[optional]]">
-                        <span id="optional">Optional</span>
+                    <paper-badge for="noFor" icon="[[_computeIcon(completed, editable)]]" label="[[index]]">
+                    </paper-badge>
+                    <div id="textWrapper">
+                        <content select=".title" iron-label-target></content>
+                        <template is="dom-if" if="[[optional]]">
+                            <span id="optional">Optional</span>
+                        </template>
+                    </div>
+                </div>
+            </div>
+            <!-- </iron-label> -->
+            <div id="animationWrapper">
+                <div id="connectorLine"></div>
+                <div id="stepButtonsWrapper">
+                    <div id="stepWrapper" class="layout horizontal flex flex-content-childs">
+                        <content select=".content"></content>
+                    </div>
+                    <template is="dom-if" if="{{!hideProcessButtons}}">
+                        <div id="buttonsWrapper">
+                            <paper-button id="continueButton" on-tap="continue">
+                                [[continueText]]
+                            </paper-button>
+                            <paper-button id="skipButton" on-tap="skip">
+                                [[skipText]]
+                            </paper-button>
+                        </div>
                     </template>
                 </div>
             </div>
-        </div>
-        <!-- </iron-label> -->
-        <div id="animationWrapper">
-            <div id="connectorLine"></div>
-            <div id="stepButtonsWrapper">
-                <div id="stepWrapper" class="layout horizontal flex flex-content-childs">
-                    <content select=".content"></content>
-                </div>
-                <template is="dom-if" if="{{!hideProcessButtons}}">
-                    <div id="buttonsWrapper">
-                        <paper-button id="continueButton" on-tap="continue">
-                            [[continueText]]
-                        </paper-button>
-                        <paper-button id="skipButton" on-tap="skip">
-                            [[skipText]]
-                        </paper-button>
-                    </div>
-                </template>
-            </div>
-        </div>
+        </highlightable-element>
     </template>
     <script>
     Polymer({
