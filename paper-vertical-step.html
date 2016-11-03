@@ -15,6 +15,7 @@
 <link rel="import" href="../highlightable-element/highlightable-element.html">
 <link rel="import" href="paper-step-behavior.html">
 <link rel="import" href="paper-step-shared-styles.html">
+<link rel="import" href="../polymer-drag-n-drop/polymer-drag-n-drop.html">
 <!--
 @element paper-vertical-step
 @demo demo/index.html
@@ -53,11 +54,15 @@
             overflow: hidden;
         }
         
+        ;
+        #animationWrapper.alwaysOpen {
+            height: auto;
+        }
+        
         :host[opened] #animationWrapper,
         :host.neon-animating #animationWrapper {
             height: auto;
         }
-        
         /**
        * Buttons
        */
@@ -144,7 +149,7 @@
         }
         </style>
         <highlightable-element>
-            <div class="titleContainer">
+            <div class="titleContainer" draggable="[[stepDraggable]]">
                 <!-- <iron-label class="titleContainer"> -->
                 <!-- <div> -->
                 <div id="backdrop" on-tap="_stepLabelTapped" on-mouseenter="_updateBadgeBackground" on-mouseleave="_updateBadgeBackground" iron-label-target>
@@ -162,10 +167,10 @@
                 </div>
             </div>
             <!-- </iron-label> -->
-            <div id="animationWrapper">
+            <div id="animationWrapper" class$="[[_computeAnimationWrapperClass(alwaysopen)]]">
                 <div id="connectorLine"></div>
                 <div id="stepButtonsWrapper">
-                    <div id="stepWrapper" class="layout horizontal flex flex-content-childs">
+                    <div id="wrapper" class="layout horizontal flex flex-content-childs">
                         <content select=".content"></content>
                     </div>
                     <template is="dom-if" if="{{!hideProcessButtons}}">
@@ -189,7 +194,9 @@
         behaviors: [
             Polymer.NeonAnimationRunnerBehavior,
             Zecat.PaperStepBehavior,
-            Polymer.IronValidatableBehavior
+            Polymer.IronValidatableBehavior,
+            DragNDrop.Draggable,
+            DragNDrop.DropTarget
         ],
 
         properties: {
@@ -209,17 +216,33 @@
                     }
                 }
             },
+            alwaysopen: {
+                type: Boolean
+            },
             hideProcessButtons: {
                 type: Boolean,
                 value: false,
             },
             opened: {
                 observer: '_openedChange'
+            },
+            stepDraggable: {
+                type: Boolean,
+                value: false
             }
         },
 
         listeners: {
             'neon-animation-finish': '_removeAnimatingClass'
+        },
+
+        _setEventDataTransferDragItem: function(event, transferData) {
+            transferData.index = this.index;
+        },
+
+        ready: function() {
+            this.dropTargetClass = 'stepper';
+            this.dropClass = 'step';
         },
 
         _closeAnimation: function() {
@@ -244,12 +267,59 @@
         _removeAnimatingClass: function() {
             this.toggleClass('neon-animating', false);
         },
+
+        _computeAnimationWrapperClass: function(alwaysOpen) {
+            if (alwaysOpen) {
+                return 'alwaysOpen';
+            } else {
+                return 'toggleOpen';
+            }
+        },
+
         skip: function() {
             this.fire('skip-step');
         },
+
         continue: function() {
             this.fire('continue-step');
+        },
+
+        _insertDroppedElement: function(event) {
+
+            var dropData = this._getData(event);
+            var insertionPoint = this._getInsertionPoint(event);
+            // debugger;
+            var fromParentIndex = dropData.fromParentIndex;
+            var fromItemIndex = dropData.fromIndex;
+            var toItemIndex = this._getToItemIndex(fromItemIndex, fromParentIndex, insertionPoint);
+            if (toItemIndex !== null) {
+                this.fire('contentItemSequenceChanged', {
+                    fromParentIndex: fromParentIndex,
+                    fromItemIndex: fromItemIndex,
+                    toParentIndex: this.index - 1,
+                    toItemIndex: toItemIndex,
+                    position: insertionPoint.position
+                });
+            }
+        },
+
+        _getToItemIndex: function(fromItemIndex, fromParentIndex, insertionPoint) {
+            if (fromParentIndex === this.index - 1 && fromItemIndex === insertionPoint.element.itemIndex) {
+                return null;
+            } else {
+                switch (insertionPoint.position) {
+                    case DragNDrop.position.above:
+                        return insertionPoint.element.itemIndex;
+                        break;
+                    case DragNDrop.position.below:
+                        return insertionPoint.element.itemIndex + 1;
+                    case DragNDrop.position.append_inside:
+                        // return this.
+                        break;
+                }
+            }
         }
+
     });
     </script>
 </dom-module>
