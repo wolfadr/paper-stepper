@@ -1,0 +1,77 @@
+<link rel="import" href="../iron-flex-layout/iron-flex-layout.html">
+<link rel="import" href="../iron-selector/iron-selector.html">
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../polymer-drag-n-drop/polymer-drag-n-drop.html">
+<link rel="import" href="paper-stepper-behavior.html">
+<link rel="import" href="paper-vertical-step.html">
+<!--
+@element paper-vertical-stepper
+@demo demo/index.html
+@hero hero.svg
+-->
+<dom-module id="paper-vertical-stepper">
+    <template>
+        <style>
+        :host {
+            display: block;
+            box-sizing: border-box;
+            @apply(--paper-font-common-base);
+            @apply(--layout-vertical);
+            padding-top: 16px;
+        }
+        /*paper-vertical-step:last-of-type::content #connectorLine {*/
+        
+        #stepSelector::content > paper-vertical-step:last-of-type::content #connectorLine {
+            visibility: hidden;
+        }
+        </style>
+        <iron-selector selected="[[selected]]" id="stepSelector" selected-attribute="opened" activate-event="select-step">
+            <!-- <iron-selector selected="[[selected]]" id="stepSelector" selected-attribute="opened" activate-event="select-step"> -->
+            <content id="wrapper" select="paper-vertical-step"></content>
+        </iron-selector>
+    </template>
+    <script>
+    Polymer({
+        is: 'paper-vertical-stepper',
+
+        behaviors: [
+            Zecat.PaperStepperBehavior,
+            DragNDrop.DropTarget
+        ],
+
+        ready: function() {
+            this.dropClass = 'stepper';
+        },
+
+        _fireSequenceChanged: function(from, to) {
+            this.fire('sequenceChanged', {
+                from: from,
+                to: to
+            });
+        },
+
+        _insertDroppedElement: function(event) {
+            var dropData = this._getData(event);
+            var insertionPoint = this._getInsertionPoint(event);
+            var from = dropData.index - 1;
+            var to = this._getToPositionIndex(from, insertionPoint);
+            if (to !== from) {
+                this.fire('sequenceChanged', {
+                    from: from,
+                    to: to
+                });
+            }
+        },
+
+        _getToPositionIndex: function(fromIndex, insertionPoint) {
+            if (fromIndex === insertionPoint.element.index - 1) {
+                return fromIndex;
+            } else if (insertionPoint.position === DragNDrop.position.below) {
+                return insertionPoint.element.index - 1;
+            } else {
+                return insertionPoint.element.index - 2;
+            }
+        }
+    });
+    </script>
+</dom-module>
