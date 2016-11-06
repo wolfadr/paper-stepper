@@ -1,62 +1,60 @@
 <link rel="import" href="../iron-validatable-behavior/iron-validatable-behavior.html">
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../polymer-drag-n-drop/draggable-behavior.html">
+
 <!--
 @element paper-step
 @demo demo/index.html
 @hero hero.svg
 -->
 <dom-module id="paper-step">
-    <template>
-        <style>
-        :host {
-            display: block;
-            box-sizing: border-box;
-        }
-        </style>
-        <div draggable="true">
-            <content></content>
-        </div>
-    </template>
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+      }
+    </style>
+    <content></content>
+  </template>
 </dom-module>
+
 <script>
-Polymer({
+  Polymer({
 
     is: 'paper-step',
 
     behaviors: [
-        Polymer.IronValidatableBehavior,
-        window.DragNDrop.Draggable,
-        window.DragNDrop.DropTarget
+      Polymer.IronValidatableBehavior
     ],
 
     properties: {
-        editable: {
-            type: Boolean,
-            value: false,
-            reflectToAttribute: true,
-            notify: true
-        },
-        label: {
-            type: String,
-            value: '',
-            notify: true
-        },
-        optional: {
-            type: Boolean,
-            value: false,
-            notify: true
-        },
-        opened: {
-            type: Boolean,
-            readOnly: true
-        }
+      editable: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true,
+        notify: true
+      },
+      label: {
+        type: String,
+        value: '',
+        notify: true
+      },
+      optional: {
+        type: Boolean,
+        value: false,
+        notify: true
+      },
+      opened: {
+        type: Boolean,
+        readOnly: true
+      }
     },
     skip: function() {
-        this.fire('skip-step');
+      this.fire('skip-step');
     },
     continue: function() {
-        this.fire('continue-step');
+      this.fire('continue-step');
     }
-});
+  });
+
 </script>
