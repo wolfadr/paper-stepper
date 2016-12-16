@@ -170,8 +170,12 @@
             <div id="animationWrapper" class$="[[_computeAnimationWrapperClass(alwaysopen)]]">
                 <div id="connectorLine"></div>
                 <div id="stepButtonsWrapper">
-                    <div id="wrapper" class="layout horizontal flex flex-content-childs">
+                    <!-- <div id="wrapper" class="layout horizontal flex flex-content-childs"> -->
+                    <div class="layout horizontal flex flex-content-childs" id="firstChildren">
                         <content select=".content"></content>
+                    </div>
+                    <div class="layout horizontal flex flex-content-childs">
+                        <content select=".addContent"></content>
                     </div>
                     <template is="dom-if" if="{{!hideProcessButtons}}">
                         <div id="buttonsWrapper">
@@ -241,8 +245,10 @@
         },
 
         ready: function() {
+
             this.dropTargetClass = 'stepper';
             this.dropClass = 'step';
+            this.draggableenabled = this.stepDraggable;
         },
 
         _closeAnimation: function() {
@@ -309,10 +315,18 @@
             } else {
                 switch (insertionPoint.position) {
                     case DragNDrop.position.above:
-                        return insertionPoint.element.itemIndex;
+                        if (insertionPoint.element.id === this.dropTargetWrapperId) {
+                            return 0;
+                        } else {
+                            return insertionPoint.element.itemIndex;
+                        }
                         break;
                     case DragNDrop.position.below:
-                        return insertionPoint.element.itemIndex + 1;
+                        if (insertionPoint.element.id === this.dropTargetWrapperId) {
+                            return -1; // which means append to the list ...
+                        } else {
+                            return insertionPoint.element.itemIndex + 1;
+                        }
                     case DragNDrop.position.append_inside:
                         // return this.
                         break;
